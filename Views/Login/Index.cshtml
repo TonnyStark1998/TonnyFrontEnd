@@ -1,0 +1,264 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+@model TonnyFrontEnd.Models.ViewModel.UsuarioVM
+    <div class="row">
+        <div class="col-sm-10">
+            <h1>Inicio de Sesion</h1>
+        </div>
+        <div class="col-sm-2">
+            <button type="submit" onclick="cerrarSesion()" class="btn btn-primary"id="btnCerrarSesion" hidden>Cerrar Sesion</button>
+        </div>
+    </div>
+
+<form asp-action="Index" asp-controller="Login" id="Login" name="Login">
+    <div class="row">
+        <div class="form-group col-md-3">
+            <label>Usuario</label>
+            <input type="text" asp-for="Nombre" class="form-control" id="NombreId" />
+            <span asp-validation-for="Nombre"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-3">
+            <label>Contraseña</label>
+            <input type="password" asp-for="Clave" id="ClaveId" class="form-control" />
+            <span asp-validation-for="Clave"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-3">
+            <button type="submit" class="btn btn-primary">Iniciar Sesion</button>
+        </div>
+    </div>
+</form>
+<br>
+<div class="row" id="btnCrud" hidden>
+    <div class="col-sm-3">
+        <button type="submit" onclick="verDiv('crear')" class="btn btn-primary">Crear Persona</button>
+    </div>
+    <div class="col-sm-3">
+        <button type="submit" onclick="verDiv('actualizar')" class="btn btn-primary">Actualizar Persona</button>
+    </div>
+    <div class="col-sm-3">
+        <button type="submit" onclick="verDiv('consultar')" class="btn btn-primary">Consultar Persona</button>
+    </div>
+    <div class="col-sm-3">
+        <button type="submit" onclick="verDiv('eliminar')" class="btn btn-primary">Eliminar Persona</button>
+    </div>
+</div>
+<br>
+<form asp-action="Index" asp-controller="Login" id="LoginCrear" name="Login" hidden>
+    <div id="CrearId" class="row">
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" asp-for="NombreCrear" id="NombreCrear" class="form-control" />
+                <span asp-validation-for="NombreCrear"></span>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Apellido Paterno</label>
+                <input type="text" asp-for="APaterno" id="APaterno" class="form-control" />
+                <span asp-validation-for="APaterno"></span>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Apellido Materno</label>
+                <input type="text" asp-for="AMaterno" id="AMaterno" class="form-control" />
+                <span asp-validation-for="AMaterno"></span>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>RFC</label>
+                <input type="text" asp-for="RFC" id="RFC" class="form-control" />
+                <span asp-validation-for="RFC"></span>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Fecha Nacimiento</label>
+                <input type="date" asp-for="FNacimiento" id="FNacimiento" class="form-control" />
+                <span asp-validation-for="FNacimiento"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-3">
+            <button type="submit" class="btn btn-primary">Agregar Persona</button>
+        </div>
+    </div>
+</form>
+
+<form asp-action="Index" asp-controller="Login" id="LoginActualizar" name="Login" hidden>
+    <div id="CrearId" class="row">
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" asp-for="NombreAct" id="NombreAct" class="form-control" />
+                <span asp-validation-for="NombreAct"></span>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Apellido Paterno</label>
+                <input type="text" asp-for="APaternoAct" id="APaternoAct" class="form-control" />
+                <span asp-validation-for="APaternoAct"></span>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Apellido Materno</label>
+                <input type="text" asp-for="AMaternoAct" id="AMaternoAct" class="form-control" />
+                <span asp-validation-for="AMaternoAct"></span>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>RFC</label>
+                <input type="text" asp-for="RFCAct" id="RFCAct" class="form-control" />
+                <span asp-validation-for="RFCAct"></span>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Fecha Nacimiento</label>
+                <input type="datetime-local" asp-for="FNacimientoAct" id="FNacimientoAct" class="form-control" />
+                <span asp-validation-for="FNacimientoAct"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <button id="btn" onclick="buscarPersona()" type="submit" class="btn btn-primary">Buscar Persona</button>
+        </div>
+        <div class="col-sm-3">
+            <button type="submit" class="btn btn-primary">Actualizar Persona</button>
+        </div>
+    </div>
+</form>
+
+<form asp-action="Index" asp-controller="Login" id="LoginConsultar" name="Login" hidden>
+    <div id="CrearId" class="row">
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" asp-for="NombreCon" id="NombreCon" class="form-control" />
+                <span asp-validation-for="NombreCon"></span>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Apellido Paterno</label>
+                <input type="text" id="APaternoCon" class="form-control" disabled />
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Apellido Materno</label>
+                <input type="text" id="AMaternoCon" class="form-control" disabled />
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>RFC</label>
+                <input type="text" id="RFCCon" class="form-control" disabled />
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Fecha Nacimiento</label>
+                <input type="text" id="FNacimientoCon" class="form-control" disabled />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-3">
+            <button type="submit" class="btn btn-primary">Consultar Persona</button>
+        </div>
+    </div>
+</form>
+
+<div asp-action="Index" asp-controller="Login" id="LoginEliminar" name="Login" hidden>
+    <div id="CrearId" class="row">
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Nombre</label>
+                <input type="text" asp-for="NombreEli" id="NombreEli" class="form-control" />
+                <span asp-validation-for="NombreEli"></span>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Apellido Paterno</label>
+                <input type="text" id="APaternoEli" class="form-control" disabled />
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Apellido Materno</label>
+                <input type="text" id="AMaternoEli" class="form-control" disabled />
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>RFC</label>
+                <input type="text" id="RFCEli" class="form-control" disabled />
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="form-group">
+                <label>Fecha Nacimiento</label>
+                <input type="text" id="FNacimientoEli" class="form-control" disabled />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <button id="btnEli" onclick="buscarPersonaEli()" class="btn btn-primary">Buscar Persona a eliminar</button>
+        </div>
+        <div class="col-sm-3">
+            <button type="submit" onclick="eliminarUsuario()" class="btn btn-primary">Eliminar Persona</button>
+        </div>
+    </div>
+</div>
+<br>
+<div id="IdExcel" hidden>
+    <div>
+        <button type="submit" onclick="buscarReportes()" class="btn btn-primary">Obtener Listado</button>
+        <button type="submit" onclick="crearExcel()" class="btn btn-primary">Obtener Excel</button>
+    </div>
+    <br>
+    <div>
+        <table class="table table-dark" id="our-table">
+            <thead>
+                <tr>
+                    <th>FechaRegistroEmpresa</th>
+                    <th>IdCliente</th>
+                    <th>IdEmpleado</th>
+                    <th>IdViaje</th>
+                    <th>Materno</th>
+                    <th>Nombre</th>
+                    <th>Paterno</th>
+                    <th>RFC</th>
+                    <th>RazonSocial</th>
+                    <th>Sucursal</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+            </tbody>
+        </table>
+        <div class="container ">
+            <div id="pagination-wrapper"></div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+<script type="text/javascript" src="//unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
